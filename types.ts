@@ -69,3 +69,12 @@ export interface ReviewData {
   reviewLesson: string;
   practiceQuiz: Quiz;
 }
+
+declare global {
+  interface Window {
+    aistudio: {
+      openSelectKey: () => Promise<void>;
+      hasSelectedApiKey: () => Promise<boolean>;
+    };
+  }
+}

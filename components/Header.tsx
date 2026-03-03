@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BookOpenIcon, SunIcon, MoonIcon, ShareIcon } from './Icons';
+import { BookOpenIcon, SunIcon, MoonIcon, ShareIcon, SettingsIcon } from './Icons';
+import { motion } from 'motion/react';
 
 interface HeaderProps {
     theme: string;
@@ -24,19 +25,25 @@ export const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
       try {
         await navigator.share(shareData);
       } catch (err) {
-        // Silently catch user cancellation
         console.log('Share was cancelled or failed', err);
       }
     } else {
-      // Fallback for browsers that don't support Web Share API
       try {
         await navigator.clipboard.writeText(window.location.href);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // Hide message after 2 seconds
+        setTimeout(() => setCopied(false), 2000);
       } catch (err) {
         console.error('Failed to copy URL:', err);
         alert('لم نتمكن من نسخ الرابط. يرجى نسخه يدويًا.');
       }
+    }
+  };
+
+  const handleOpenSettings = async () => {
+    if (window.aistudio && typeof window.aistudio.openSelectKey === 'function') {
+        await window.aistudio.openSelectKey();
+    } else {
+        alert('ميزة إعدادات API غير مدعومة حاليًا.');
     }
   };
 
@@ -45,12 +52,26 @@ export const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <BookOpenIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            <motion.div
+                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+            >
+                <BookOpenIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            </motion.div>
             <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mr-3">
               محول الاختبارات التفاعلي المتقدم
             </h1>
           </div>
           <div className="flex items-center gap-2">
+            <motion.button
+                whileHover={{ rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleOpenSettings}
+                className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                title="إعدادات API"
+            >
+                <SettingsIcon className="w-6 h-6" />
+            </motion.button>
             <div className="relative">
                 <button
                     onClick={handleShare}

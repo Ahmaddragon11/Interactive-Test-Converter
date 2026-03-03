@@ -26,5 +26,6 @@ export {
     ZoomOut as ZoomOutIcon,
     Search as SearchIcon,
     ChevronLeft as ChevronLeftIcon,
-    ChevronRight as ChevronRightIcon
+    ChevronRight as ChevronRightIcon,
+    Settings as SettingsIcon
 } from 'lucide-react';
