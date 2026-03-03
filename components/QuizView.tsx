@@ -4,6 +4,7 @@ import { type Quiz, type UserAnswers, type GradingState, type QuizResults, Quest
 import { QuestionComponent } from './Question';
 import { MaximizeIcon, MinimizeIcon, UploadIcon, CheckCircleIcon, BookOpenIcon, ChevronDownIcon, FileTextIcon, HelpCircleIcon, DownloadIcon, CopyIcon } from './Icons';
 import { PlayAudioButton } from './PlayAudioButton';
+import { PdfViewer } from './PdfViewer';
 import { generateQuizHtml } from '../utils/download';
 
 declare const confetti: any;
@@ -287,8 +288,8 @@ export const QuizView: React.FC<QuizViewProps> = (props) => {
             <div className="bg-white dark:bg-gray-800 p-2 sm:p-4 rounded-2xl shadow-lg sticky top-8">
                 <div className="flex justify-end mb-2"><button onClick={() => setIsPdfFullScreen(!isPdfFullScreen)} title={isPdfFullScreen ? "تصغير العرض" : "تكبير العرض"} className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">{isPdfFullScreen ? <MinimizeIcon className="w-5 h-5" /> : <MaximizeIcon className="w-5 h-5" />}
                     </button></div>
-            <div className="w-full aspect-auto bg-gray-200 dark:bg-gray-900 rounded-lg overflow-hidden">
-                <embed src={pdfUrl} type="application/pdf" className="w-full h-[calc(100vh-10rem)]" />
+            <div className="w-full h-[calc(100vh-12rem)] bg-gray-200 dark:bg-gray-900 rounded-lg overflow-hidden">
+                <PdfViewer url={pdfUrl} />
             </div>
             </div>
         </div>

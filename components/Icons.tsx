@@ -21,5 +21,10 @@ export {
     Download as DownloadIcon,
     Music as MusicIcon,
     Sparkles as SparklesIcon,
-    Copy as CopyIcon
+    Copy as CopyIcon,
+    ZoomIn as ZoomInIcon,
+    ZoomOut as ZoomOutIcon,
+    Search as SearchIcon,
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon
 } from 'lucide-react';
